@@ -1,28 +1,18 @@
 // function to hit API
-// i need a function that takes in a city and passes that in, then returns the object
-// function(city) {}
-// city comes from user input (a form).
-// for that, I need to handle form submission.
 
 // handle form submission
 const weatherForm = document.querySelector("#weatherForm");
 
 const handleSubmit = (form) => {
 
-    // here we define what data we want etc. 
+    // here we define what data we want etc.
     city = form.querySelector('input').value;
 
-    alert(city);
-
-    // perform operation (like a callback function) with data.
-
+    // callback function
     fetchData(city);
 }
 
 weatherForm.addEventListener("submit", () => handleSubmit(weatherForm));
-
-// handle pressing "Enter"
-
 
 // fetching the data
 fetch("https://api.weatherapi.com/v1/current.json?key=5146eba384ca42b1a2792606242305&q=london", { mode: "cors" }) 
@@ -35,7 +25,3 @@ fetch("https://api.weatherapi.com/v1/current.json?key=5146eba384ca42b1a279260624
 .then( (response) => {
     console.log(response);
 });
-
-
-
-// function to process JSON data
