@@ -6,6 +6,7 @@ weatherForm.addEventListener("submit", (e) => handleSubmitPromise(e));
 
 const SubmitPromise = (event) => {
     // here we define what data we want etc.
+    
     event.preventDefault(); // prevents the page from reloading
 
     const form = event.target;
@@ -44,17 +45,41 @@ const getUrl = (city) => {
 // fetching the data
 const fetchData = (city) => {
     let url = getUrl(city);
-    // console.log("fetchData: " + url);
-    const data = fetch(url, { mode: "cors" })
+
+    fetch(url, { mode: "cors" })
     .then((res) => {
-        // console.log(res.json());
+        if (!res.ok) {
+            alert("wtf did u fail geography or something");
+            throw new Error("invalid city");
+        }
         return res.json();
     })
     .then((res) => {
-        console.log(res);
-        return res;
+        // console.log(res);
+        displayTemp(res);
+    })
+    .catch(() => {
+        console.log("error caught");
+        return
     });
 }
+
+const displayTemp = (data) => {
+    const temp_c = data.current.temp_c;
+    const temp_f = data.current.temp_f;
+    console.log("filterData test");
+    console.log(temp_c);
+
+    const p = document.querySelector("#temp");
+    p.textContent = `${temp_c} °C`
+
+    // const container = document.querySelector("#temp");
+    // // first create element
+    // const temp_c_content = document.createElement("p");
+    // temp_c_content.textContent = `${temp_c} °C`
+    // // then append that element as a child to where u want it to be
+    // container.appendChild(temp_c_content);
+};
 
 fetch("https://api.weatherapi.com/v1/current.json?key=5146eba384ca42b1a2792606242305&q=london", { mode: "cors" }) 
 // `fetch` returns a promise that resolves to a Response object. => ie. in the code for fetch, we see `resolve` being called with `resolve(res)`
