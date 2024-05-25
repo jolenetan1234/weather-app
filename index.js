@@ -6,7 +6,7 @@ weatherForm.addEventListener("submit", (e) => handleSubmitPromise(e));
 
 const SubmitPromise = (event) => {
     // here we define what data we want etc.
-    event.preventDefault();
+    event.preventDefault(); // prevents the page from reloading
 
     const form = event.target;
     const city = form.querySelector('input').value; // event.target refers to the <form> element
@@ -23,30 +23,38 @@ const SubmitPromise = (event) => {
 
 const handleSubmitPromise = (event) => {
     // handle promise
-    SubmitPromise(event).then((res) => {
-        console.log(`Success: ${res}`);
+    SubmitPromise(event).then((city) => {
+        console.log(`Success: ${city}`);
+        // fetch data
+        fetchData(city);
     }).catch((msg) => {
         alert(msg);
     });
 }
 
-// handle promise
-// SubmitPromise(event).then( (res) => {
-//     console.log(`Success: ${res}`);
-// }).catch((msg) => {
-//     alert(msg);
-// })
-    
-
-
-
-    // callback function
-    // fetchData(city);
+// function to get url
+const getUrl = (city) => {
+    let url = "https://api.weatherapi.com/v1/current.json?key=5146eba384ca42b1a2792606242305&q=";
+    // console.log("getUrl test: " + url + city);
+    url += city;
+    console.log("getUrl: " + url);
+    return url;
+}
 
 // fetching the data
-// const fetchData = (city) => {
-//     let url = 
-// }
+const fetchData = (city) => {
+    let url = getUrl(city);
+    // console.log("fetchData: " + url);
+    const data = fetch(url, { mode: "cors" })
+    .then((res) => {
+        // console.log(res.json());
+        return res.json();
+    })
+    .then((res) => {
+        console.log(res);
+        return res;
+    });
+}
 
 fetch("https://api.weatherapi.com/v1/current.json?key=5146eba384ca42b1a2792606242305&q=london", { mode: "cors" }) 
 // `fetch` returns a promise that resolves to a Response object. => ie. in the code for fetch, we see `resolve` being called with `resolve(res)`
