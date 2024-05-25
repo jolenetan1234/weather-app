@@ -70,8 +70,10 @@ const displayTemp = (data) => {
     console.log("filterData test");
     console.log(temp_c);
 
-    const p = document.querySelector("#temp");
-    p.textContent = `${temp_c} °C`
+    const p_c = document.querySelector("#temp_c");
+    const p_f = document.querySelector("#temp_f");
+    p_c.textContent = `${temp_c} °C`;
+    p_f.textContent = `${temp_f} °F`;
 
     // const container = document.querySelector("#temp");
     // // first create element
@@ -81,6 +83,7 @@ const displayTemp = (data) => {
     // container.appendChild(temp_c_content);
 };
 
+// IGNORE
 fetch("https://api.weatherapi.com/v1/current.json?key=5146eba384ca42b1a2792606242305&q=london", { mode: "cors" }) 
 // `fetch` returns a promise that resolves to a Response object. => ie. in the code for fetch, we see `resolve` being called with `resolve(res)`
 // In the Response object, res.json() is ANOTHER promise that resolves to the parsed JSON data.
